@@ -1,4 +1,4 @@
-* Ubuntu 22.04 no WSL2
+* Emacs+Spacemacs(Ubuntu 22.04 no WSL2)
   Essas configurações tem as soluções de tudo o que deu errado
 enquanto eu configurei o emacs no wsl2, deve funcionar com qualquer
 distribuição, e.g, Doom Emacs e Spacemacs, sendo assim a minha
@@ -25,19 +25,22 @@ ZSH_THEME="spaceship"
 
 ** Git
 *** Usuario
+Sempre usar o mesmo email do Github no gpg
 #+BEGIN_SRC bash
 git config --global user.name "TEU USUARIO"
 git config --global user.email "TEU EMAIL"
+git config --global commit.gpgsign true
+git config --global user.signingkey "TUA CHAVE"
 #+END_SRC
 
 *** GPG
 Correção do IOCTL
 #+BEGIN_SRC bash
-  echo 'GPG_TTY=$(tty)' >> ~/.zshrc
-  echo 'export GPG_TTY' >> ~/.zshrc
+echo 'GPG_TTY=$(tty)' >> ~/.zshrc
+echo 'export GPG_TTY' >> ~/.zshrc
 
-  gpgconf --kill gpg-agent
-  echo "test" | gpg --clearsign
+gpgconf --kill gpg-agent
+echo "test" | gpg --clearsign
 #+END_SRC
 
 *** SSH
