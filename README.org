@@ -1,15 +1,15 @@
-* Emacs+Spacemacs(Ubuntu 22.04 no WSL2)
-  Essas configurações tem as soluções de tudo o que deu errado
-enquanto eu configurei o emacs no wsl2, deve funcionar com qualquer
-distribuição, e.g, Doom Emacs e Spacemacs, sendo assim a minha
-configuração pessoal(init.el) pode ser ignorada mas vale ressaltar
-que as opções de fullscreen são fundamentais no caso Spacemacs.
-
+* Spacemacs como Python IDE
+** Dependencias
+*** PIP
+#+BEGIN_SRC bash
+flake8 isort yapf importmagic autoflake 'python-lsp-server[all]' django django-stubs importmagic epc pyright black
+#+END_SRC
+*** Sistema
+#+BEGIN_SRC bash
+zsh git emacs sqlite3 libsqlite3-dev python3-pip python3-tk liblzma-dev
+#+END_SRC
 ** ZSH + OhMyZsh
 #+BEGIN_SRC bash
-sudo apt update
-sudo apt upgrade
-sudo apt install zsh git
 chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
@@ -51,49 +51,14 @@ chmod 600 ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa.pub
 #+END_SRC
 
-** WSL2
-Configurações do WSL2.
-
-*** Fontes
-Corrige problemas com fontes no GUI do Emacs.
-#+BEGIN_SRC bash
-sudo apt update
-sudo apt upgrade
-sudo apt install fontconfig fonts-hack-ttf
-
-ln -s /mnt/c/Windows/Fonts ~/.fonts
-fc-cache -fv
-#+END_SRC
-
-*** Teclado ABNT2
-Sempre iniciar o terminal do Ubuntu antes do Emacs,
-essa é a única solução que funciona no momento
-#+BEGIN_SRC bash
-sudo dpkg-reconfigure locales #Descer a lista e ativar pt_BR.UTF8 e pt_BR.ISO
-sudo update-locale LANG=pt_BR.UTF8
-
-echo "setxkbmap -model abnt2 -layout br -variant abnt2" >> ~/.profile
-echo "setxkbmap -model abnt2 -layout br -variant abnt2" >> ~/.zshrc
-#+END_SRC
-
 ** Emacs
 #+BEGIN_SRC bash
-sudo apt update
-sudo apt upgrade
-
-sudo apt install git emacs sqlite3 libsqlite3-dev
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-
-# Minha configuração do spacemacs
 git clone https://github.com/RebertiCS/spacemacs-dotfiles.git ~/.spacemacs.d
 #+END_SRC
 
 *** Python(PyEnv + LSP)
 #+BEGIN_SRC bash
-sudo apt update
-sudo apt upgrade
-sudo apt install python3-pip python3-tk liblzma-dev
-
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
 echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
@@ -103,5 +68,5 @@ pyenv install 3.10
 pyenv global 3.10
 
 pip install -U pip
-pip install flake8 isort yapf importmagic autoflake 'python-lsp-server[all]'
+pip install flake8 isort yapf importmagic autoflake 'python-lsp-server[all]' django django-stubs importmagic epc pyright black
 #+END_SRC
